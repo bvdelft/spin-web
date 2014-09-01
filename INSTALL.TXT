@@ -1,0 +1,8 @@
+Simply place the extracted archive on the web server.
+Leave the archive there as well if you want people to download the
+source code.
+You need to have gcc installed and present in $PATH.
+
+Configuration:
+- see settings.php
+

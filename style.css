@@ -1,0 +1,345 @@
+/* TAGS */
+
+*, html, body {
+  margin:  0px;
+  padding: 0px;
+}
+
+body {
+  font-size: 14px;
+  font-family: arial, sans-serif;
+  font-weight: normal;
+  line-height: 20px;
+  padding-right: 20px;
+}
+
+td {
+  vertical-align: top;
+  border: solid 0px black;
+}
+
+h2 {
+  margin-bottom: 10px;	
+}
+
+a {
+  text-decoration: none;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+input[type=checkbox] {
+  margin-right: 5px;
+}
+
+input[type=text] {
+  width: 40px;
+  text-align: center;
+}
+
+button {
+  height: 30px;
+  width: 100px;
+}
+
+ul {
+  margin: 20px;
+}
+
+p.center {
+  text-align: center;
+}
+
+iframe {
+  width: 380px;
+  height: 50px;
+}
+
+/* ROOT COMPONENTS */
+
+table {
+  border-collapse: collapse;
+}
+
+table#spinTable {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-left: 20px;
+  margin-top: 60px;
+}
+
+div#topbar {
+  position: absolute;
+  left    : 0px;
+  top     : 0px;
+  height  : 40px;
+  width   : 100%;
+  background: #448;  
+}
+
+div#title {
+  position: absolute;
+  left    : 0px;
+  top     : 0px;
+  height  : 40px;
+  width   : 100%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  color   : #eee;
+}
+
+div.topbutton {
+  position: absolute;
+  top: 0px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #eee;
+}
+
+div#aboutB {
+  right: 20px;
+}
+
+div#examplesB {
+  left: 20px;
+}
+
+div.topbutton a {
+  color: #eee;
+}
+
+div.topbutton a:hover {
+  color: #aaa;
+}
+
+/* ACE EDITOR */
+
+div#editorPane {
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+/* SCROLLING */
+
+table#spinTable td#horScrollT {
+  height: 100%;
+  margin-left: 0px;
+  width: 20px;
+  cursor: e-resize;
+}
+
+
+td#verScrollT {
+  height: 20px;
+  width:  100%;
+  cursor: n-resize;
+}
+
+
+/* CELLS */ 
+
+table#rightTable {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+#editorPaneT,
+#settingsPaneT,
+#outputPaneT {
+   vertical-align: top;
+   background: #ccc;
+   padding: 20px;
+   border-radius: 6px;
+   background-color: rgba(0, 0, 0, 0.1);
+   box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25), 
+                     0 1px 0   rgba(255, 255, 255, 0.25);
+   overflow: hidden;
+}
+
+div#editorPane {
+  border: solid black 1px;
+}
+
+/* OUTPUT */
+
+div#output {
+  line-height: 20px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+
+div.error {
+  position: absolute;
+  background: #fa6	;
+}
+
+div.choice {
+  position: absolute;
+  background: #afa;
+}
+
+button.chosen {
+  background: #afa;
+}
+
+button.notChosen {
+  background: #ffa;
+}
+
+/* CONTROLS */
+
+td.control {
+  border: solid #224 2px;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+div#hideControls {
+  position: relative;
+  top: -20px;
+  width: 100%;
+  text-align: right;
+}
+
+div#showControls {
+  position: relative;
+  width: 100%;
+  top: -30px;
+  text-align: right;
+  display: none;
+}
+td.control td {
+  padding-left: 15px;
+}
+
+
+/* TABS */
+
+div#filetabsPane {
+  height: 30px;
+}
+
+div#filetabsPane span a {
+  text-decoration: none;
+  color: #000;
+}
+
+div#filetabsPane span img {
+  position: relative;
+  top:  2px;
+  margin-left: 8px;
+  display: none;
+}
+
+div#filetabsPane span.openTab img {
+  display: inline;
+}
+
+div#filetabsPane span {
+   background: #ccc;
+   padding-top: 4px;
+   padding-left: 8px;
+   padding-right: 5px;
+   padding-bottom: 3px;
+   border-radius: 6px;
+   background-color: rgba(0, 0, 0, 0.1);
+   box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25), 
+                     0 1px 0   rgba(255, 255, 255, 0.25);
+   margin-right: 5px;
+}
+
+div#filetabsPane span.openTab {
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* POPUPS */
+
+div.popup {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  display: none;
+}
+
+div.popup a {
+  color: #44a;
+}
+
+div.popup a:hover {
+  color: #8a8;
+}
+
+div.popup p {
+  margin-top: 20px;
+}
+
+div.popupCenter {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  margin-left: -200px;
+  height: 400px;
+  margin-top: -200px;
+  border-radius: 6px;
+  padding: 20px;
+  background: #ccc;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25), 
+                    0 1px 0   rgba(255, 255, 255, 0.25);
+}
+
+/* bigger one for cheat sheet */
+div#cheatsheet div.popupCenter {
+  width: 1000px;
+  margin-left: -500px;
+  height: 700px;
+  margin-top: -350px;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+span.code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+span.emph {
+  font-style: italic;
+}
+
+div#cheatsheet h4 {
+ margin-top: 10px;
+}
+div#cheatsheet td {
+ padding-right: 5px;
+}
+
+div#cheatsheet p {
+ margin: 0px;
+}
+
+/* MINIMAL MODE */
+
+div#minimalOutput,
+div#minimalControl {
+	width: 100%;
+	text-align: center;
+	display: none;	
+}
+
+/* BASIC MODE */
+
+textarea#basicPane {
+  display: none;
+  width: 100%;
+  height: 90%;
+}

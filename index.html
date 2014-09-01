@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Web-interface for Spin</title>
+    <script src="script.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  
+    <!-- POPUP: EXAMPLES -->
+    
+    <div id="examples" class="popup">
+      <div class="popupCenter">
+        <h2>Examples</h2>
+        <p>The example will load as a new file.
+        </p>
+        <ul>
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('jspin-examples/dekker.pml','dekker.pml'); hide('examples')">
+                  dekker.pml</a> 
+                  (from <a href="http://code.google.com/p/jspin/" target="_blank">jSpin</a>)
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('jspin-examples/frogs.pml','frogs.pml'); hide('examples')">
+                  frogs.pml</a> 
+                  (from <a href="http://code.google.com/p/jspin/" target="_blank">jSpin</a>)
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('jspin-examples/sem-busy.pml','sem-busy.pml'); hide('examples')">
+                  sem-busy.pml</a> 
+                  (from <a href="http://code.google.com/p/jspin/" target="_blank">jSpin</a>)
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('jspin-examples/sem-ch.pml','sem-ch.pml'); hide('examples')">
+                  sem-ch.pml</a> 
+                  (from <a href="http://code.google.com/p/jspin/" target="_blank">jSpin</a>)
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('jspin-examples/count.pml','count.pml'); hide('examples')">
+                  count.pml</a> 
+                  (from <a href="http://code.google.com/p/jspin/" target="_blank">jSpin</a>)
+        </ul>
+        <p>
+        <a href="javascript:void(0)" onclick="hide('examples')">Close window</a>
+        </p>
+      </div>
+    </div>
+    
+    <!-- POPUP: COURSE CODE -->
+    
+    <div id="course" class="popup">
+      <div class="popupCenter">
+        <h2>Course material</h2>
+        <p>These are files used in a <a href="http://www.cse.chalmers.se/edu/course/TDA293/" target="_blank">course at Chalmers university</a>.
+        </p>
+        <ul>
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/channels_e1.pml','channels_e1.pml'); hide('course')">
+                  Channels - exercise 1</a>
+<li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/channels_e2.pml','channels_e2.pml'); hide('course')">
+                  Channels - exercise 2</a>
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/channels_e3.pml','channels_e3.pml'); hide('course')">
+                  Channels - exercise 3</a>
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/proxy.pml','proxy.pml'); hide('course')">
+                  Model checking a proxy</a> 
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/Philosophers.pml','Philosophers.pml'); hide('course')">
+                  Lab 1 - Dining philosphers</a>
+          <li> <a href="javascript:void(0)" 
+                  onclick="openExample('course-code/NS.pml','NS.pml'); hide('course')">
+                  Lab 1 - Needham-Schr&ouml;der protocol</a> 
+        </ul>
+        <p>
+        <a href="javascript:void(0)" onclick="hide('course')">Close window</a>
+        </p>
+      </div>
+    </div>
+    
+    <!-- POPUP: CHEAT SHEET -->
+    
+    <div id="cheatsheet" class="popup">
+      <div class="popupCenter">
+        <h2>Cheat sheet</h2>
+        <p>(<a href="javascript:void(0)" onclick="hide('cheatsheet')">Close window</a>) This cheat sheet is based on the Spin Reference Card by <a href="http://www.weizmann.ac.il/sci-tea/benari/" target="_blank">Mordechai
+        Ben-Ari</a>, under the <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">CC 3.0</a> license.
+        </p>
+        <table>
+          <tr>
+            <td><h4>Datatypes</h4>
+            <p>
+              <span class="code">bit</span> (1 bit)<br/>
+              <span class="code">bool</span> (1 bit)<br/>
+              <span class="code">byte</span> (8 bits unsigned)<br/>
+              <span class="code">short</span> (16* bits signed)<br/>
+              <span class="code">int</span> (32* bits signed)<br/>
+              <span class="code">unsigned</span> (&leq; 32* bits unsigned)<br/>
+              &nbsp; &nbsp; &nbsp; * - for a 32-bit machine<br/>
+              <span class="code">pid</span> <br/>
+              <span class="code">chan</span> <br/>
+              <span class="code">mtype = { </span> name, name, ... <span class="code">}</span><br/>
+              <span class="code">typedef </span> typename <span class="code">{ </span> seq. of declarations <span class="code">}</span> <br/>
+            </p>
+            <h4>Operators (descending precendence)</h4>
+            <p>
+              <span class="code">() []  .
+            !            ~            ++            --
+            *            /            %            +
+            -            &lt;&lt;            >></span> <br/><span class="code">
+            <            <=            >            >=
+            ==            !=            &
+            ^ | &&  ||  </span><br/><span class="code">
+            ( .. ->  .. : .. ) </span> conditional expression
+            </p>
+            <h4>Predefined</h4>
+            <p>
+              Constants - <span class="code">true</span>, <span class="code">false</span><br/>
+              Variables - (read-only except <span class="code">_</span>):<br />
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">_</span> - write-only hidden scratch variable<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">_nr_pr</span> - number of processes<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">_pid</span> instance number of executing process<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">timeout</span> no exec. statements in the system?<br/>
+            </p>
+            <h4>Preprocessor</h4>
+            <p>
+              <span class="code">#define</span> name (arguments) string<br/>
+              <span class="code">#undef</span>, 
+              <span class="code">#if</span>, 
+              <span class="code">#ifdef</span>, 
+              <span class="code">#ifndef</span>, 
+              <span class="code">#else</span>, 
+              <span class="code">#endif</span> <br/>
+              <span class="code">#include</span> "file name" <br/>
+              <span class="code">inline</span> name (arguments)
+              <span class="code">{</span> ... <span class="code">}</span>
+            </p>
+            <h4>Statements</h4>
+            <p>
+              <span class="code">mtype </span> var<span class="code">;</span> - variable declaration<br/>
+              <span class="code">mtype </span> var<span class="code">[N];</span> - array declaration<br/>
+              var <span class="code">=</span> expr, var<span class="code">++</span>,
+              var<span class="code">--</span><br/>
+              <span class="code">assert(</span>expression<span class="code">)</span><br/><br/>
+              <span class="code">printf</span>, <span class="code">printm</span> - print to standard output<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">%c</span> (character),
+              <span class="code">%d</span> (decimal),
+              <span class="code">%e</span> (mtype), <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">%o</span> (octal),
+              <span class="code">%u</span> (unsigned),
+              <span class="code">%x</span> (hex) <br/>
+              <span class="code">scanf</span> - read from standard input
+            </p>
+            </td>
+            <td>
+            <h4>Statements (ctd)</h4>
+            <p>
+              <span class="code">skip</span> - no operation <br/>
+              <span class="code">break</span> - exit innermost <span class="code">do</span> loop <br/>
+              <span class="code">goto</span> - jump to label <br/>
+              Label prefixes with special meaning:<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">accept</span> - accept cycle <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">end</span> - valid end state <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">progress</span> - non-progress cycle <br/>
+              <span class="code">atomic { </span>...<span class="code"> }</span> - execute without interleaving <br/>
+              <span class="code">d_step { </span>...<span class="code"> }</span> - execute deterministically <br/>
+                (no jumping in or out; deterministic choice <br/>among true guards; only the first statement <br/>
+                can block)<br/>
+              <span class="code">{ </span>...<span class="code"> } unless { </span> ... <span class="code">}</span>- exception handling <br/>
+            </p>
+            <h4>Guarded commands</h4>
+            <p>
+              <span class="code">if :: </span> guard <span class="code">-></span> statements <span class="code">::</span> .. <span class="code">fi</span> <br/>
+              <span class="code">do :: </span> guard <span class="code">-></span> statements <span class="code">::</span> .. <span class="code">od</span> <br/>
+              <span class="code">else </span> guard - executed if all others are false <br/>
+            </p>
+            <h4>Processes</h4>
+            <p>
+              Declaration - <span class="code">proctype</span> procname <span class="code">(</span>parameters<span class="code">) {</span> ... <span class="code">}</span><br/>
+              Activate with prefixes - <span class="code">active</span> or <span class="code">active[N]</span><br/>
+              Explicit process activation - <span class="code">run</span> procname <span class="code">(</span>arguments<span class="code">)</span><br/>
+              Initial process - <span class="code">init {</span> ... <span class="code">}</span><br/>
+              Declaration suffixes:<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">priority</span> - set simulation priority<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">provided (e)</span> - executable only if <span class="code">e</span> is true
+            </p>
+            <h4>Channels</h4>
+            <p>
+              <span class="code">chan ch = [</span>capacity<span class="code">] of {</span> type, type, ... <span class="code">}</span><br/>
+              <br/>
+              <table>
+                <tr> <td>ch <span class="code">!</span> args </td><td>send</td></tr>
+                <tr> <td>ch <span class="code">!!</span> args </td><td>sorted send</td></tr>
+                <tr> <td> <br/></td><td/></tr>
+                <tr> <td>ch <span class="code">?</span> args </td><td>receive + remove if <span class="emph">first</span> message matches</td></tr>
+                <tr> <td>ch <span class="code">??</span> args </td><td>receive + remove if <span class="emph">any</span> message matches</td></tr>
+                <tr> <td>ch <span class="code">? &lt;</span>args<span class="code">></span> </td><td>receive if <span class="emph">first</span> message matches</td></tr>
+                <tr> <td>ch <span class="code">?? &lt;</span>args<span class="code">></span> </td><td>receive if <span class="emph">any</span> message matches</td></tr>
+                <tr> <td>ch <span class="code">? [</span>args<span class="code">]</span> </td><td>poll <span class="emph">first</span> message (side-effect free)</td></tr>
+                <tr> <td>ch <span class="code">?? [</span>args<span class="code">]</span> </td><td>poll <span class="emph">any</span> message (side-effect free)</td></tr>
+              </table>
+            </p>
+            </td>
+            <td>
+            <h4>Channels (ctd)</h4>
+            <p>
+              Matching in a receive statement: constants and mtype<br/>
+              symbols must match; variables are assigned the<br/>
+              values in the message; 
+              <span class="code">eval(e)</span> forces a match <br/>with 
+              the current value of the expression.<br/>
+              <br/>
+              <span class="code">len(</span>ch<span class="code">)</span> - number of messages in a channel<br/>
+              <span class="code">empty(</span>ch<span class="code">)</span> / <span class="code">nempty(</span>ch<span class="code">)</span> - is channel (not) empty?<br/>              
+              <span class="code">full(</span>ch<span class="code">)</span> / <span class="code">nfull(</span>ch<span class="code">)</span> - is channel (not) full?<br/>
+              <br />
+              Channel use assertions:<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">xr ch</span> - channel <span class="code">ch</span> is receive-only in this process<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; <span class="code">xs ch</span> - channel <span class="code">ch</span> is send-only in this process
+            </p>
+            <h4>Temporal logic</h4>
+            <table>
+              <tr><td><span class="code">!</span></td><td>not</td>
+              <td><span class="code">[]</span></td><td>always</td>
+              </tr>
+              <tr><td><span class="code">&&</span></td><td>and</td>
+              <td><span class="code">&lt;></span></td><td>eventually</td>
+              </tr>
+              <tr><td><span class="code">||</span></td><td>or</td>
+              <td><span class="code">X</span></td><td>next</td>
+              </tr>
+              <tr><td><span class="code">-></span></td><td>implies</td>
+              <td><span class="code">U</span></td><td>strong until</td>
+              </tr>
+              <tr><td><span class="code">&lt;-></span></td><td>equivalent to</td>
+              <td><span class="code">V</span></td><td>dual as <span class="code">pVq &lt;-> !(!pU!q)</span></td>
+              </tr>
+            </table>
+            <h4>Remote references</h4>
+            <p>
+            Test the control state or value of a variable:<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; process-name <span class="code">@</span> label-name<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; process-name <span class="code">[</span> expression <span class="code">]</span> <span class="code">@</span> label-name<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; process-name <span class="code">:</span> label-name<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp; process-name <span class="code">[</span> expression <span class="code">]</span> <span class="code">:</span> label-name<br/>
+            </p>
+            <h4>LTL formula</h4>
+            <span class="code">ltl</span> name <span class="code">{</span> ... <span class="code">}</span>
+            <h4>Variable declaration prefixes</h4>
+            <span class="code">hidden</span> - hide this variable from the system state<br/>
+            <span class="code">local</span> - a global var. is accessed only by one process
+            <h4>Comments</h4>
+            <span class="code">//</span> single-line</br>
+            <span class="code">/*</span> multi-line<span class="code">*/</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- POPUP: ABOUT -->
+    
+    <div id="about" class="popup">
+      <div class="popupCenter">
+        <h2>About</h2>
+        <p>This website provides an online interface to the
+        <a href="http://www.spinroot.com" target="_blank">Spin model checker</a>
+        and was developed to simplify its use in a 
+        <a href="http://www.cse.chalmers.se/edu/course/TDA293/" target="_blank">course at Chalmers university</a>.
+        </p>
+        <p>
+        Not all functionality of Spin and jSpin can be found here. Some operations
+        such as running interactively are technically too complicated, but other
+        functionality is left out to keep the interface simple for the purpose of the course.
+        </p>
+        <p>
+        If you find that the website malfunctions, please contact me about it
+        and specify which browser you are using:<br/>vandeba (a) chalmers.se
+        </p>
+        <p>
+        This service is provided as is. Information you enter while using this
+        site is not stored.
+        </p>
+        <p>
+        <a href="javascript:void(0)" onclick="hide('about')">Close window</a>
+        </p>
+      </div>
+    </div>
+     
+    <!-- POPUP: CREDITS -->
+    
+    <div id="credits" class="popup">
+      <div class="popupCenter">
+        <h2>Sources and Credits</h2>
+        <p>This interface was developed by Bart van Delft, 2013.
+        </p>
+        <p>More information on Spin and its developers can be found
+        at <a href="http://spinroot.com/spin/whatispin.html" target="_blank">spinroot.com</a>.
+        </p>
+        <p>If you want to deploy or modify this website, the code (a mixture
+        of DHTML and a small bit of PHP) is available 
+        <a href="spin.tar.gz">here</a> with some documentation 
+        under the <a href="http://www.wtfpl.net/" target="_blank">WTFPL</a> license.
+        The editor used is the <a href="http://ace.c9.io/" target="_blank">ACE</a> editor,
+        which is distributed with the <a href="https://github.com/ajaxorg/ace/blob/master/LICENSE" target="_blank">BSD</a> license.
+        </p>
+        <p>
+        <a href="javascript:void(0)" onclick="hide('credits')">Close window</a>
+        </p>
+      </div>
+    </div>   
+    
+    <!-- POPUP: NEW FILE -->
+    
+    <div id="newfile" class="popup">
+      <div class="popupCenter">
+        <h2>Create a new file</h2>
+        <p class="center">
+          <button onclick="addTab(); hide('newfile')" style="margin-bottom: 20px;">New file</button>
+        </p>
+        <h2>Upload a file to edit</h2>
+        <p>Select a file to edit. Note that you need to save changes back to a
+        file on your local machine; they are not saved by the web service.
+        </p>
+        <iframe id="uploadframe" src="upload.html">
+          <p>Your browser does not support iframes.</p>
+        </iframe>
+        <p>
+        <a href="javascript:void(0)" onclick="hide('newfile')">Close window</a>
+        </p>
+      </div>
+    </div>
+    
+    <!-- TOP BAR -->
+    
+    <div id="topbar">
+      <div id="title">
+         Web-interface for Spin
+      </div>
+      <div id="examplesB" class="topbutton">
+         <a href="javascript:void(0)" onclick="show('examples')">examples</a> -
+         <a href="javascript:void(0)" onclick="show('course')">course material</a> -
+         <a href="javascript:void(0)" onclick="show('cheatsheet')">cheat sheet</a>
+      </div>
+      <div id="aboutB" class="topbutton">
+         <a href="javascript:void(0)" onclick="show('credits')">sources</a> -
+         <a href="javascript:void(0)" onclick="show('about')">about</a>
+      </div>
+    </div>
+    
+    <!-- ACTUAL INTERFACE -->
+    
+    <table id="spinTable">
+      <tr>
+        
+        <!-- Left hand side / minimal mode side -->
+        <td>
+          <!-- The controls and output pane move here in minimal mode -->
+          <div id="minimal_controls"></div>
+          <div id="minimal_output"></div>
+          <div id="editorPaneT">
+            <!-- Tabs of open files -->
+            <div id="filetabsPane">
+              <span id="addFile"><a href="javascript:void(0)" onclick="resetUploadFrame(); show('newfile');">+</a></span>
+            </div>
+            <!-- Editor pane where ace editor will be -->
+		        <div id="editorPane"></div>
+		        <textarea id="basicPane"></textarea>
+          </div>
+          <!-- Controls shown when in minimal mode -->
+          <div id="minimalControl">
+            <a href="javascript:void(0)" onclick='minimalEditor()'>Editor</a> -
+            <a href="javascript:void(0)" onclick='minimalControls()'>Controls</a> -
+            <a href="javascript:void(0)" onclick='minimalOutput()'>Output</a>
+          </div>
+        </td>
+        <!-- Vertical scrollbar for horizontal changes -->
+        <td id="horScrollT">
+          <div id="horScroll"></div>
+        </td>
+        
+        <!-- Right hand side -->
+        <td id="rightTD">
+          <table id="rightTable">
+            <tr>
+              <!-- Move controls here when in maximal mode -->
+              <td id="maximal_controls">
+                <div id="settingsPaneT">
+                  <table>
+                    <tr>
+                      
+                      <!-- Simulate options -->
+                      <td class="control" colspan="2">
+                        <table>
+                          <tr> <td><input type="checkbox" id="g" checked="checked" />
+                               <label for="g">Global variables</label></td>
+                               <td><input type="checkbox" id="l" checked="checked" />
+                               <label for="l">Local variables</label></td>
+                               <td><input type="checkbox" id="p" checked="checked" />
+                               <label for="p">Statements</label></td></tr>
+                          <tr> <td><input type="checkbox" id="r" checked="checked" />
+                               <label for="r">Receive events</label></td>
+                               <td><input type="checkbox" id="s" checked="checked" />
+                               <label for="s">Send events</label></td>
+                               <td><input type="checkbox" id="v" />
+                               <label for="v">Verbose</label></td></tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="control">
+                        <input type="checkbox" id="u" />
+                        Stop after <input type="text" id="uSteps" value="250" /> steps
+                        <button id='simB' onclick="spin('s')">Run</button>
+                      </td>
+                      <td class="control">
+                        <button id='intB' onclick="$('output').innerHTML='';spin('i')">Interactive</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="control" colspan="2">
+                        <p>
+                        Mode:
+                        <select id="verifyMode">
+                          <option value="safety">Safety</option>
+                          <option value="acceptance">Acceptance</option>
+                          <option value="nonprogress">Non-progress</option>
+                        </select> 
+                        <input type="checkbox" id="f" />
+                        <label for="f">Weak fairness</label>
+                        <input type="checkbox" id="t" checked="checked" />
+                        <label for="t">Run generated trail</label>
+                        </p>
+                        <p>
+                          Name of LTL formula:
+                          <input type"text" id="ltl" value="" style="width:100px" />
+                          <button id='verB' onclick="spin('v')">Verify</button>
+                        </p>
+                      </td>
+                     </tr>
+                     <tr>
+                       <td class="control">
+                         <input type="checkbox" id="minimal" onchange="updateMinimal()" /> Minimal mode
+                       </td>
+                       <td class="control">
+                         <input type="checkbox" id="basiceditor" onchange="updateBasicEditor()" /> Basic editor
+                       </td>
+                     </tr>
+                    </tr>
+                  </table> <!-- end control panel table -->
+                 </div>
+                </td>
+            </tr> <!-- end control panel -->
+            <!-- Horizontal scrollbar for vertical changes -->
+            <tr>
+              <td id="verScrollT"><div id="verScroll"></div></td>
+            </tr>
+            <!-- Spin output -->
+            <tr>
+              <!-- in maximized mode -->
+              <td id="maximal_output">
+                <div id="outputPaneT">
+                  <div id="output">
+                    Spin's output will appear here.
+                  </div>
+                </div>
+              </td>
+            </tr> <!-- end spin output -->
+          </table> <!-- end right hand side-->
+        </td>
+      </tr>
+    </table> <!-- end interface-->
+    <script>
+      var load = window.onload;
+      window.onload = function() {
+        load();
+        var f = getUrlVars()['f'];
+        var fn = getUrlVars()['fn'];
+        if (f != undefined) {
+          var files = f.split(',');
+          var filenames = fn.split(',');
+          for (var i = 0; i < files.length; i++) {
+            openExample(files[i],filenames[i]); 
+          }
+        }
+      } 
+    </script>    
+  </body>
+</html>
+
