@@ -264,6 +264,12 @@ function options() {
   return res;
 }
 
+function sanitiseOutput(str, name) {
+  str = str.replace(/myfile.pml/g,name);
+  str = str.replace(/</g,'&lt;');
+  return str;
+}
+
 /* Call spin and feed result to output pane
 */
 function spin(mode) {
@@ -298,28 +304,35 @@ function spin(mode) {
   
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      console.log(xmlhttp.responseText);
-      if (mode == 'i') {
-        outputInteractive(xmlhttp.responseText);
-        simpleError(xmlhttp.responseText);
-        highlightOptions(xmlhttp.responseText);
+      var resp = JSON.parse(xmlhttp.responseText);
+      console.log(resp);
+      if (resp.mode == 'i') {
+        outputInteractive(resp.commands[0].stdout);
+        simpleError(resp.commands[0].stdout);
+        highlightOptions(resp.commands[0].stdout);
       } else {
+        out.innerHTML = "";
         // Simply display result obtained from server.
-        var output = xmlhttp.responseText.
-            replace(/</g,'&lt;').replace(/\n/g,'<br />');
+        for (var i = 0; i < resp.commands.length; i++) {
+          var c = resp.commands[i];
+          out.innerHTML += "<div class=\"out_command\">"
+              + c.command.replace(/myfile.pml/g,name) + "</div>";
+          out.innerHTML += "<div class=\"out_std\">" + sanitiseOutput(c.stdout, name)
+              + "</div>";
+          out.innerHTML += "<div class=\"out_err\">" + sanitiseOutput(c.stderr, name)
+              + "</div>";
+          simpleError(c.stdout);
+          if (c.errcode != 0) {
+            var msg = "Command exited with error code " + c.errcode;
+            if (c.errcode == 124) msg += ", which usually means a timeout";
+            msg += ".";            
+            out.innerHTML += "<div class=\"out_err\">" + msg + "</div>";
+          }
+        }
         // Re-enable buttons.
         $('simB').disabled = false;
         $('verB').disabled = false;
         $('intB').disabled = false;
-        // In case there is no output, we get an empty line.
-        if (output == "<br />")
-          out.innerHTML = "<pre>No output produced -- timeout?</pre>";
-        else {
-          out.innerHTML = "<pre>" + output.replace(/myfile.pml/g,name) + 
-                          "</pre>";
-          // Try and highlight any errors.
-          simpleError(xmlhttp.responseText); 
-        }
       }
     }
   };
@@ -344,15 +357,18 @@ function outputInteractive(text) {
   var choices = text.substring(text.lastIndexOf("\n") + 1).split(",");
   var output = text.substring(0, text.lastIndexOf("\n"));
   var out = $('output');
-  out.innerHTML += "<pre>" + output.replace(/myfile.pml/g,name) + 
-                          "</pre>";
+  out.innerHTML += "<div class=\"out_std\">" + output.replace(/myfile.pml/g,name) + 
+                          "</div>";
   var buttons = new Array();
+  var optionsDiv = document.createElement('div');
+  optionsDiv.setAttribute('class','intactOptions');
+  out.appendChild(optionsDiv);
   // Create a button for each choice. On click, disable all choice buttons,
   // color the selected one, store choice for re-running interactively.
   for (var c in choices) {
     buttons[c] = document.createElement('button');
     buttons[c].innerHTML = choices[c];
-    out.appendChild(buttons[c]);
+    optionsDiv.appendChild(buttons[c]);
     buttons[c].onclick = function() {
       for (var b in buttons) {
         buttons[b].disabled = true;
@@ -369,10 +385,10 @@ function outputInteractive(text) {
       spin('i');
     };
   }
-  // Option to cancel ineractive mode.
+  // Option to cancel interactive mode.
   buttons['stop'] = document.createElement('button');
   buttons['stop'].innerHTML = 'Stop';
-  out.appendChild(buttons['stop']);
+  optionsDiv.appendChild(buttons['stop']);
   buttons['stop'].onclick = function() {
       for (var b in buttons) {
         buttons[b].disabled = true;

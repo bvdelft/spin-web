@@ -173,6 +173,24 @@ div#output {
   overflow-y: auto;
 }
 
+div#output div {
+  width: 100%;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+div#output div.out_command {
+  background: #444444;
+  color: #ffffff;
+}
+
+div#output div.out_std {
+}
+
+div#output div.out_err {
+  background: #844;
+  color: #ffffff;
+}
 
 div.error {
   position: absolute;
@@ -184,12 +202,22 @@ div.choice {
   background: #afa;
 }
 
-button.chosen {
-  background: #afa;
+div#output div.intactOptions {
+  background: #aaaaaa;
+  width: 100%;
+  text-align: center;
 }
 
-button.notChosen {
-  background: #ffa;
+div#output button {
+  background: #eeeeee;
+}
+
+div#output button.chosen {
+  background: #484;
+  color: white;
+}
+
+div#output button.notChosen {
 }
 
 /* CONTROLS */
