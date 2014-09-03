@@ -2,7 +2,7 @@
   require("settings.php");
 
   $token = preg_replace( '/[^0-9a-zA-Z]/', '', $_POST['token']);
-  $tempfile = $SETTINGS["upload_dir"] . $token;
+  $tempfile = $SETTINGS["upload_dir"] . '/' . $token;
   
   /* A file is uploaded in one frame, read in a different one. The way to
      communicate is by a client-specific token used as the file name for the
