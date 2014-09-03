@@ -4,6 +4,15 @@ spin-web
 Web-interface for the Spin model checker.
 Find an example on http://spin.nowplea.se
 
+Installation
+========
+
+You can install the interface without git as follows (example directory: `/var/www`:
+
+```
+/var/www # wget https://github.com/bvdelft/spin-web/archive/master.zip
+```
+
 License
 ========
 
