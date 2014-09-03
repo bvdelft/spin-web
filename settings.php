@@ -9,14 +9,15 @@ $SETTINGS = array();
 
 // All directories should be writeable by the apache unix user.
 
-// Directory where uploaded files will appear.// You might
-$SETTINGS["upload_dir"] = "/home/bart/Projecten/nowplease/spin/tmp/";
+// Directory where uploaded files will appear.
+$SETTINGS["upload_dir"] = "/scratch/spintmp/";
 
 // Directory in which we create several sub-dirs spinfolder_[random] for each
-// model check request. 
-$SETTINGS["spin_tmp_dir"] = "/home/bart/Projecten/nowplease/spin/tmp/";
+// model check request. If the directory does not exist or is not accessible,
+// the system's default temporary directory will be used.
+$SETTINGS["spin_tmp_dir"] = "/scratch/spintmp/";
 
 // Full path to spin executable
-$SETTINGS["spin_exec"] = "/scratch/Spin/Src6.3.2/spin";
+$SETTINGS["spin_exec"] = "/scratch/spin/spin";
 
 ?>

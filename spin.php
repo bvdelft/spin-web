@@ -1,5 +1,15 @@
 <?php
-  require("functions.php");
+  require("functions.php"); 
+
+  $output_object = array();
+  $output_object['mode'] = $_POST['mode'];
+  $output_object['commands'] = array();
+  $output_object['log'] = array();
+  
+  function report($line) {
+    global $output_object;
+    array_push($output_object['log'],$line);
+  }
 
   // Only continue if source is provided
   if (empty($_POST['source']))
@@ -7,10 +17,7 @@
 
   $tempdir = makeTempDir();
   $pmlfile = makeFile($tempdir, $_POST['source']);
-
-  $output_object = array();
-  $output_object['mode'] = $_POST['mode'];
-  $output_object['commands'] = array();
+  report("Created temp. file: " . $pmlfile);
 
   // Do requested action
   //   v - verification

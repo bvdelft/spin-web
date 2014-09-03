@@ -6,6 +6,7 @@
    * Create a temporary directory and returns the path to that directory.
    **/
   function makeTempDir() {
+    global $SETTINGS;
     $tempdir = tempnam($SETTINGS["spin_tmp_dir"],'spinfolder_');
     if (file_exists($tempdir)) { unlink($tempdir); } // later one overrules.
     mkdir($tempdir);

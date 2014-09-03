@@ -289,7 +289,7 @@ function spin(mode) {
   
   var data = encodeURIComponent(editor.getValue());
   var postString = "source=" + data + "&mode=" + mode + options();
-  console.log(postString);
+  // console.log(postString);
   
   // Disable all buttons
   $('simB').disabled = true;
@@ -305,7 +305,8 @@ function spin(mode) {
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
       var resp = JSON.parse(xmlhttp.responseText);
-      console.log(resp);
+      for (var i = 0; i < resp.log.length; i++)
+        console.log(resp.log[i]);
       if (resp.mode == 'i') {
         outputInteractive(resp.commands[0].stdout);
         simpleError(resp.commands[0].stdout);
