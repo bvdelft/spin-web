@@ -123,6 +123,8 @@ function initLayout() {
   
   $('uploadframe').onload = handleUpload;
   
+  initPopupListeners();
+  
   repaint();
 
 }
@@ -176,6 +178,20 @@ function repaint() {
   }
 
   editor.resize();    
+}
+
+/* Initialize event-listeners which closes the popups, when you click outside 
+the popup.
+*/
+function initPopupListeners() {
+  var popups = document.querySelectorAll('.popup');
+  [].forEach.call(popups, function(popup) {
+    popup.addEventListener('click', function(e) {
+      if (e.target == popup) {
+        hideAllPopups();
+      }
+    }, true);
+  });
 }
 
 /********************************** RESIZING **********************************/
