@@ -605,6 +605,13 @@ function hide(d) {
   $(d).style.display = 'none';
 }
 
+function hideAllPopups() {
+  var popups = document.querySelectorAll('.popup');
+  [].forEach.call(popups, function(popup) {
+    popup.style.display = 'none';
+  });
+}
+
 /************************** MINIMAL INTERFACE *********************************/
 
 /* Returns true iff the interface is minimalised.
@@ -736,8 +743,10 @@ document.onkeyup=function(e){
     if(e.keyCode == 17) isCtrl=false;
 }
 
-/* When ctrl-S is pressed, get the current text in the editor and request the
+/* Listen for keypresses.
+   When ctrl-S is pressed, get the current text in the editor and request the
    server to serve it as a file.
+   When Escape is pressed, hide all popups.
 */
 document.onkeydown=function(e){
     if(e.keyCode == 17) isCtrl=true;
@@ -748,6 +757,8 @@ document.onkeydown=function(e){
         var name = current_tab.name;
         post_to_url("save.php", {'name': name, 'data' : data}, "post");
         return false; // prevent browser's ctrl-s behaviour.
+    } else if (e.keyCode == 27) {
+        hideAllPopups(); // Hide popups when escape is pressed
     }
 }
 
